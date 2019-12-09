@@ -18,7 +18,7 @@ class Player {
 
     this.vy = 1;
     this.gravity = null;
-    this.gravitySpeed = 5;
+    this.gravitySpeed = 0.5;
 
     this.setListeners();
   }
@@ -39,12 +39,8 @@ class Player {
     } else if (this.gravity) {
       this.posY += this.vy;
     } else {
-      this.posY -= this.vy * this.gravitySpeed;
+      this.posY -= this.vy;
     }
-  }
-
-  gameOver() {
-    return this.posY >= this.gameHeight - this.height;
   }
 
   setListeners() {
