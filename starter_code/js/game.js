@@ -35,11 +35,11 @@ const Game = {
       this.moveAll();
 
       this.clearObstacles();
+      this.sumScore();
 
       if (this.isCollision()) this.gameOver();
 
       if (this.framesCounter % 400 === 0) this.generateObstacles();
-      if (this.framesCounter % 1000 === 0) this.score++;
       if (this.framesCounter > 1000) this.framesCounter = 0;
     }, 1000 / this.fps);
   },
@@ -68,6 +68,7 @@ const Game = {
     this.background.draw();
     this.player.draw();
     this.obstacles.forEach(obstacle => obstacle.draw());
+    document.getElementById("score").textContent = this.score;
   },
 
   moveAll: function() {
@@ -84,6 +85,17 @@ const Game = {
     this.obstacles = this.obstacles.filter(
       obstacle => obstacle.posX >= -obstacle.width
     );
+  },
+
+  sumScore() {
+    if (
+      this.obstacles.some(
+        obstacle =>
+          this.player.posX >= obstacle.posX &&
+          this.player.posX < obstacle.posX + 2
+      )
+    )
+      this.score++;
   },
 
   isCollision() {

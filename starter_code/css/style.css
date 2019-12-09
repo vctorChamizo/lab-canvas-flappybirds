@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css?family=Wallpoet&display=swap");
+
 body {
   text-align: center;
   display: flex;
@@ -26,4 +28,12 @@ body button {
   width: 30%;
   position: absolute;
   visibility: hidden;
+}
+
+#score {
+  position: absolute;
+  top: 180px;
+  font-family: "Wallpoet";
+  color: #fff;
+  font-size: 50px;
 }
