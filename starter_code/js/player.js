@@ -16,7 +16,7 @@ class Player {
     this.posY0 = this.gameHeight / 2;
     this.posY = this.posY0;
 
-    this.vy = 1;
+    this.vy = 2;
     this.gravity = null;
     this.gravitySpeed = 5;
 
@@ -39,7 +39,7 @@ class Player {
     } else if (this.gravity) {
       this.posY += this.vy;
     } else {
-      this.posY -= this.vy * this.gravitySpeed;
+      this.posY -= this.vy;
     }
   }
 
