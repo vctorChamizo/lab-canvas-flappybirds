@@ -1,0 +1,29 @@
+body {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+body button {
+  width: 10%;
+  font-size: 20px;
+  background-color: black;
+  color: #fff;
+  padding: 10px 20px;
+  border: 0;
+  box-shadow: 0;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+#flappy-birds-logo {
+  width: 30%;
+}
+
+#game-over-img {
+  width: 30%;
+  position: absolute;
+  visibility: hidden;
+}
