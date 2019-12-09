@@ -4,14 +4,15 @@ const Game = {
   width: undefined,
   height: undefined,
   interval: undefined,
-  fps: 60,
   obstacles: [],
   playerKeys: {
     SPACE: 32
   },
-  framesCounter: 0,
 
   init: function() {
+    document.getElementById("start-button").style.display = "none";
+    document.getElementById("game-over-img").style.visibility = "hidden";
+
     this.canvas = document.getElementById("canvas");
     this.ctx = this.canvas.getContext("2d");
     this.width = window.innerWidth * 0.9;
@@ -26,11 +27,7 @@ const Game = {
     this.reset();
 
     this.interval = setInterval(() => {
-      this.framesCounter++;
-
-      if (this.framesCounter > 1000) this.framesCounter = 0;
-      if (this.framesCounter % 1000 === 0) this.clear();
-
+      this.clear();
       this.drawAll();
       this.moveAll();
     }, 1000 / this.fps);
@@ -59,13 +56,17 @@ const Game = {
   moveAll: function() {
     this.background.move();
     this.player.move();
+
+    if (this.player.gameOver()) this.gameOver();
   },
 
   generateObstacles: function() {},
 
+  clearObstacles: function() {},
+
   gameOver: function() {
     clearInterval(this.interval);
-  },
-
-  clearObstacles: function() {}
+    document.getElementById("start-button").style.display = "block";
+    document.getElementById("game-over-img").style.visibility = "visible";
+  }
 };

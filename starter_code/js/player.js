@@ -18,7 +18,7 @@ class Player {
 
     this.vy = 1;
     this.gravity = null;
-    this.gravitySpeed = 0.4;
+    this.gravitySpeed = 5;
 
     this.setListeners();
   }
@@ -34,20 +34,31 @@ class Player {
   }
 
   move() {
-    if (this.posY > 0 && this.posY < this.gameHeight - this.height) {
-      this.posY += this.vy;
-      this.vy += this.gravitySpeed;
-    } else if (this.posY < 0) {
+    if (this.gravity === null) {
       this.posY = this.posY0;
-      this.vy = 0;
-    } else this.posY = this.gameHeight - this.height;
+    } else if (this.gravity) {
+      this.posY += this.vy;
+    } else {
+      this.posY -= this.vy * this.gravitySpeed;
+    }
+  }
+
+  gameOver() {
+    return this.posY >= this.gameHeight - this.height;
   }
 
   setListeners() {
     document.addEventListener("keydown", e => {
       if (e.keyCode === this.keys.SPACE) {
-        this.posY -= 25;
-        this.vy = -8;
+        this.posY -= this.vy;
+        this.gravity = false;
+      }
+    });
+
+    document.addEventListener("keyup", e => {
+      if (e.keyCode === this.keys.SPACE) {
+        this.posY += this.vy;
+        this.gravity = true;
       }
     });
   }
