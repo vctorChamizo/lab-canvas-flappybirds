@@ -10,7 +10,7 @@ class Background {
     this.posX = 0;
     this.posY = 0;
 
-    this.vx = 8;
+    this.vx = 2;
   }
 
   draw() {
@@ -32,7 +32,6 @@ class Background {
 
   move() {
     this.posX -= this.vx;
-
     if (this.posX <= -this.width) this.posX = 0;
   }
 }

@@ -9,12 +9,13 @@ const Game = {
   playerKeys: {
     SPACE: 32
   },
+  framesCounter: 0,
 
   init: function() {
     this.canvas = document.getElementById("canvas");
     this.ctx = this.canvas.getContext("2d");
-    this.width = window.innerWidth;
-    this.height = window.innerHeight;
+    this.width = window.innerWidth * 0.9;
+    this.height = window.innerHeight * 0.9;
     this.canvas.width = this.width;
     this.canvas.height = this.height;
 
@@ -25,7 +26,11 @@ const Game = {
     this.reset();
 
     this.interval = setInterval(() => {
-      this.clear();
+      this.framesCounter++;
+
+      if (this.framesCounter > 1000) this.framesCounter = 0;
+      if (this.framesCounter % 1000 === 0) this.clear();
+
       this.drawAll();
       this.moveAll();
     }, 1000 / this.fps);
@@ -35,8 +40,8 @@ const Game = {
     this.background = new Background(this.ctx, this.width, this.height);
     this.player = new Player(
       this.ctx,
-      50,
-      50,
+      this.width,
+      this.height,
       "images/flappy.png",
       this.playerKeys
     );

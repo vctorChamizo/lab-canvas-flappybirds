@@ -1,19 +1,24 @@
 class Player {
   constructor(ctx, width, height, image, keys) {
     this.ctx = ctx;
-    this.width = width;
-    this.height = height;
+
+    this.gameWidth = width;
+    this.gameHeight = height;
 
     this.image = new Image();
     this.image.src = image;
 
-    this.posX = 200;
-    this.posY = 300;
-    this.posY0 = 300;
-    this.vy = 1;
-    this.gravity = true;
-    this.gravitySpeed = 0.4;
     this.keys = keys;
+
+    this.width = 50;
+    this.height = 50;
+    this.posX = this.gameWidth * 0.1;
+    this.posY0 = this.gameHeight / 2;
+    this.posY = this.posY0;
+
+    this.vy = 1;
+    this.gravity = null;
+    this.gravitySpeed = 0.4;
 
     this.setListeners();
   }
@@ -29,29 +34,20 @@ class Player {
   }
 
   move() {
-    if (this.posY <= this.posY0) {
+    if (this.posY > 0 && this.posY < this.gameHeight - this.height) {
       this.posY += this.vy;
       this.vy += this.gravitySpeed;
-    } else {
-      this.vy = 1;
+    } else if (this.posY < 0) {
       this.posY = this.posY0;
-    }
+      this.vy = 0;
+    } else this.posY = this.gameHeight - this.height;
   }
 
   setListeners() {
     document.addEventListener("keydown", e => {
-      switch (e.keyCode) {
-        case this.keys.SPACE:
-            this.posY -= this.vy;
-            this.vy -= 10;
-          /*if (this.posY >= this.posY0) {
-            this.posY -= this.vy;
-            this.vy -= 10;
-          }*/
-          break;
-
-        default:
-          break;
+      if (e.keyCode === this.keys.SPACE) {
+        this.posY -= 25;
+        this.vy = -8;
       }
     });
   }
